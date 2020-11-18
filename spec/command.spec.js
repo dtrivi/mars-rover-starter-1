@@ -24,4 +24,6 @@ describe("Command class", function() {
     assert.strictEqual(argumentTwo.value, 'LOW_POWER');
   });
 
+  
+
 });
