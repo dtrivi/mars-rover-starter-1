@@ -6,9 +6,13 @@ class Rover{
   }
 
   receiveMessage(message) {
-    return 
+    let object = {
+      message: message.name,
+      results: [message.commands[0], message.commands[1]]
+    };
+    return object;
   }
-}
+};
 
 module.exports = Rover;
 
