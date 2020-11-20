@@ -1,10 +1,48 @@
 const assert = require('assert');
 const Rover = require('../rover.js');
+const Message = require('../message.js');
+const Command = require('../command.js');
 
 describe("Rover class", function() {
 
   it("constructor sets position and default values for mode and generatorWatts", function() {
-    
-  })
+    let passedOrDefaultValue = new Rover(7);
+    assert.strictEqual(passedOrDefaultValue.position, 7);
+    assert.strictEqual(passedOrDefaultValue.mode, "NORMAL");
+    assert.strictEqual(passedOrDefaultValue.generatorWatts, 110);
+  });
+
+  it("response returned by receiveMessage contains name of message", function() {
+    let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+    let message = new Message('Test message with two commands', commands);
+    let rover = new Rover();
+    let response = rover.receiveMessage(message);
+    assert.strictEqual(response.message, 'Test message with two commands');
+  });
+
+  it("response returned by receiveMessage includes two results if two commands are sent in the message", function() {
+    let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+    let message = new Message('Test message with two commands', commands);
+    let rover = new Rover();
+    let response = rover.receiveMessage(message);
+    assert.strictEqual(response.results.length, 2);
+  });
+
+  // it("responds correctly to status check command", function() {
+  //   let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+  //   let message = new Message('Test message with two commands', commands);
+  //   let rover = new Rover();
+  //   let response = rover.receiveMessage(message);
+  //   let statusCheck = rover.receiveMessage(message).results;
+  //   let roverStatus = statusCheck.push({
+  //           completed: true,
+  //           roverStatus: {
+  //             mode: this.mode,
+  //             generatorWatts: this.generatorWatts,
+  //             position: this.position,
+  //           }
+  //         });
+  //   assert.strictEqual(roverStatus.mode, 'NORMAL');
+  // });
 
 })
