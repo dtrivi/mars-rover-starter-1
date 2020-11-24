@@ -11,6 +11,11 @@ class Rover{
       results: []
     }
     for (let index=0; index < message.commands.length; index++) {
+      if (message.commands[index].commandType === 'MOVE') {
+        object.results.push({
+          completed:true
+        })
+      }
       if (message.commands[index].commandType === 'STATUS_CHECK') {
         object.results.push({
           completed: true,
