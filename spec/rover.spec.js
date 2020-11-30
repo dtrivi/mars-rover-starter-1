@@ -13,7 +13,7 @@ describe("Rover class", function() {
   });
 
   it("response returned by receiveMessage contains name of message", function() {
-    let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+    let commands = [new Command('STATUS_CHECK')];
     let message = new Message('Test message with two commands', commands);
     let rover = new Rover();
     let response = rover.receiveMessage(message);
@@ -29,7 +29,7 @@ describe("Rover class", function() {
   });
 
   it("responds correctly to status check command", function() {
-    let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+    let commands = [new Command('STATUS_CHECK')];
     let message = new Message('Test message with two commands', commands);
     let rover = new Rover(87382098);
     let response = rover.receiveMessage(message);
@@ -42,7 +42,7 @@ describe("Rover class", function() {
         position: 87382098,
       }
     };
-    assert.deepEqual(statusCheck[1], expected);
+    assert.deepEqual(statusCheck[0], expected);
   });
 
   it("responds correctly to mode change command", function () {
@@ -55,8 +55,7 @@ describe("Rover class", function() {
       completed: true
     };
     assert.deepEqual(statusCheck[0], expected);
-    //need to figure out how to update Rover class mode when passing 'MODE_CHANGE' or rather, need to update Rover Object
+    assert.strictEqual(rover.mode, 'LOW_POWER');
   });
 
 })
-//remember that test 10's statusCheck[1] refers to the second result because we passed two commands through on line 31. Thus, test 11's statusCheck[0] refers to the first result because we've only passed one command through. Thus the conditional only evaluates that command and returns just one result.     console.log(statusCheck[0]);

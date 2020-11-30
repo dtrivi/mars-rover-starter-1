@@ -1,3 +1,6 @@
+const Message = require('./message.js');
+const Command = require('./command.js');
+
 class Rover{
   constructor(position){
     this.position = position;
@@ -26,17 +29,21 @@ class Rover{
           }
         })
       }
-      if (message.commands[index].commandType === 'MODE_CHANGE') {
+      if (message.commands[index].commandType === 'MODE_CHANGE' && message.commands[index].value === 'LOW_POWER') {
+        object.results.push({
+          completed: true
+        })
+        this.mode = 'LOW_POWER';
+      } else if (message.commands[index].commandType === 'MODE_CHANGE') {
         object.results.push({
           completed: true
         })
       }
     }
-
     return object;
   }
 };
 
+
 module.exports = Rover;
 
-console.log(new Rover(87382098));
