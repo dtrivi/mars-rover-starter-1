@@ -26,7 +26,7 @@ describe("Rover class", function() {
     let rover = new Rover();
     let response = rover.receiveMessage(message);
     assert.strictEqual(response.results.length, 2);
-    // for bonus test >> assert.strictEqual(response.results.length >= 2, true);
+    // for bonus test/spec >> assert.strictEqual(response.results.length >= 2, true);
   });
 
   it("responds correctly to status check command", function() {
