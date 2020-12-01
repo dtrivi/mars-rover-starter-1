@@ -41,15 +41,15 @@ class Rover{
         this.mode = message.commands[index].value;
       } 
     }
-    // bonus test code below
-    for (let index=0; index < message.commands.length; index++) {
-      if (message.commands[index].commandType !== 'MOVE' || message.commands[index].commandType !== 'STATUS_CHECK' || message.commands[index].commandType !== 'MODE_CHANGE') {
-        object.results.push({
-          completed:false
-        })
-        console.log("INVALID: Unknown commandType")
-      }
-    }
+    //bonus test code below
+    // for (let index=0; index < message.commands.length; index++) {
+    //   if (message.commands[index].commandType !== 'MOVE' || message.commands[index].commandType !== 'STATUS_CHECK' || message.commands[index].commandType !== 'MODE_CHANGE') {
+    //     object.results.push({
+    //       completed:false
+    //     })
+    //     console.log("INVALID: Unknown commandType")
+    //   }
+    // }
     return object;
   }
 };
@@ -58,8 +58,8 @@ class Rover{
 module.exports = Rover;
 
 //bonus test trial
-let commands = [new Command('WHAT_UP_ROVER')];
-let message = new Message('invalid command test', commands);
-let rover = new Rover(98382);
-let response = rover.receiveMessage(message);
-console.log(response);
+// let commands = [new Command('WHAT_UP_ROVER')];
+// let message = new Message('invalid command test', commands);
+// let rover = new Rover(98382);
+// let response = rover.receiveMessage(message);
+// console.log(response);
