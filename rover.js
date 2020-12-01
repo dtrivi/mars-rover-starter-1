@@ -57,7 +57,7 @@ class Rover{
 
 module.exports = Rover;
 
-//bonus test trial
+bonus test trial
 // let commands = [new Command('WHAT_UP_ROVER')];
 // let message = new Message('invalid command test', commands);
 // let rover = new Rover(98382);
