@@ -26,6 +26,7 @@ describe("Rover class", function() {
     let rover = new Rover();
     let response = rover.receiveMessage(message);
     assert.strictEqual(response.results.length, 2);
+    // for bonus test >> assert.strictEqual(response.results.length >= 2, true);
   });
 
   it("responds correctly to status check command", function() {
@@ -85,5 +86,18 @@ describe("Rover class", function() {
     };
     assert.strictEqual(rover.position, 123);
   })
+
+  // bonus spec/test below
+  // it("completed false and a message for an unknown command", function() {
+  //   let commands = [new Command('WHAT_UP_ROVER')];
+  //   let message = new Message('invalid command test', commands);
+  //   let rover = new Rover(98382);
+  //   let response = rover.receiveMessage(message);
+  //   let statusCheck = rover.receiveMessage(message).results;
+  //   let expected = {
+  //     completed: false
+  //   };
+  //   assert.deepEqual(statusCheck[0], expected); 
+  // })
 
 })
