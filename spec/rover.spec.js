@@ -6,8 +6,8 @@ const Command = require('../command.js');
 describe("Rover class", function() {
 
   it("constructor sets position and default values for mode and generatorWatts", function() {
-    let passedOrDefaultValue = new Rover(7);
-    assert.strictEqual(passedOrDefaultValue.position, 7);
+    let passedOrDefaultValue = new Rover(98382);
+    assert.strictEqual(passedOrDefaultValue.position, 98382);
     assert.strictEqual(passedOrDefaultValue.mode, "NORMAL");
     assert.strictEqual(passedOrDefaultValue.generatorWatts, 110);
   });
@@ -21,7 +21,7 @@ describe("Rover class", function() {
   });
 
   it("response returned by receiveMessage includes two results if two commands are sent in the message", function() {
-    let commands = [new Command('MOVE'), new Command('STATUS_CHECK')];
+    let commands = [new Command('MODE_CHANGE'), new Command('STATUS_CHECK')];
     let message = new Message('Test message with two commands', commands);
     let rover = new Rover();
     let response = rover.receiveMessage(message);
@@ -57,5 +57,33 @@ describe("Rover class", function() {
     assert.deepEqual(statusCheck[0], expected);
     assert.strictEqual(rover.mode, 'LOW_POWER');
   });
+
+  it("responds with false completed value when attempting to move in LOW_POWER mode", function() {
+    let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('MOVE', 123)];
+    let message = new Message('low power move test', commands);
+    let rover = new Rover(123);
+    let response = rover.receiveMessage(message);
+    let statusCheck = rover.receiveMessage(message).results;
+    let expectedZero = {
+      completed: true
+    };
+    let expectedOne = {
+      completed: false
+    };
+    assert.deepEqual(statusCheck[0], expectedZero);   
+    assert.deepEqual(statusCheck[1], expectedOne);
+  });
+
+  it("responds with position for move command", function() {
+    let commands = [new Command('MOVE', 123)];
+    let message = new Message('straight move test', commands);
+    let rover = new Rover(commands.value);
+    let response = rover.receiveMessage(message);
+    let statusCheck = rover.receiveMessage(message).results;
+    let expected = {
+      completed: true
+    };
+    assert.strictEqual(rover.position, 123);
+  })
 
 })
